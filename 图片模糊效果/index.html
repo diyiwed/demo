@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片模糊效果</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="middle">
+		<div class="image">
+			<img src="img/image.jpg" class="img" alt="">
+			<div class="text">这张照片可能含有暴力内容！</div>
+			<button onclick="coverImage()" class="btn">揭开图片</button>
+		</div>
+	</div>
+
+	<script>
+		var btn = document.getElementsByClassName('btn')[0],
+			text = document.getElementsByClassName('text')[0],
+			img = document.getElementsByClassName('img')[0],
+			c = 0;
+
+			function coverImage() {
+				if (c == 0) {
+					btn.innerHTML = "遮盖图片";
+					text.style.display = "none";
+					img.style.filter = "blur(0)";
+					c = 1;
+				} else {
+					btn.innerHTML = "揭开图片";
+					text.style.display = "block";
+					img.style.filter = "blur(24px)";
+					c = 0;
+				}
+			}
+	</script>
+</body>
+</html>

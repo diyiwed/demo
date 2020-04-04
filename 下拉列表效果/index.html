@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉列表效果</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body>
+	<div class="middle">
+		<div class="sm-container">
+			<i class="show-btn fa fa-share" aria-hidden="true"></i>
+			<div class="sm-menu">
+				<a href="#"><i class="fa fa-weibo" aria-hidden="true"></i></a>
+				<a href="#"><i class="fa fa-qq" aria-hidden="true"></i></a>
+				<a href="#"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+				<a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+				<a href="#"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+			</div>	
+		</div>
+	</div>
+	<script>
+		$(".show-btn").click(function () {
+			// fadeTogle: 盒子淡入淡出切换，不会影响布局
+			$(".sm-menu").fadeToggle("fast");
+		});
+	</script>
+</body>
+</html>

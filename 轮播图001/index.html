@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 0;
+        }
+
+        .all {
+            width: 500px;
+            height: 200px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .screen {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen li {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            float: left;
+        }
+
+        .screen ul {
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 3000px;
+        }
+
+        .all ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .all ol li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .all ol li.current {
+            background: #DB192A;
+        }
+
+        #arr {
+            display: none;
+        }
+
+        #arr span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #arr #right {
+            right: 5px;
+            left: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="all" id='box'>
+    <div class="screen"><!--相框-->
+        <ul>
+            <li><img src="images/1.jpg" width="500" height="200"/></li>
+            <li><img src="images/2.jpg" width="500" height="200"/></li>
+            <li><img src="images/3.jpg" width="500" height="200"/></li>
+            <li><img src="images/4.jpg" width="500" height="200"/></li>
+            <li><img src="images/5.jpg" width="500" height="200"/></li>
+        </ul>
+        <ol>
+        </ol>
+    </div>
+    <div id="arr"><span id="left">&lt;</span><span id="right">&gt;</span></div>
+</div>
+<script src="common.js"></script>
+<script>
+    //获取最外面的div
+    var box = my$("box");
+    //获取相框
+    var screen = box.children[0];
+    //获取相框的宽度
+    var imgWidth = screen.offsetWidth;
+    //获取UL
+    var ulObj = screen.children[0];
+    //获取ul中的所有的li
+    var list = ulObj.children;
+    //获取ol
+    var olObj = screen.children[1];
+    //焦点的div
+    var arr = my$("arr");
+
+    var pic = 0;
+
+    //创建小按钮
+    for (var i = 0; i < list.length; i++) {
+        //创建li标签，加入到ol中
+        var liObj = document.createElement("li");
+
+        olObj.appendChild(liObj);
+        liObj.innerHTML = (i + 1);
+        //在每个ol中的li标签上添加一个自定义属性，储存索引值
+        liObj.setAttribute("index", i);
+        //注册鼠标进入事件
+        liObj.onmouseover = function () {
+            //先干掉所有的ol中的li的背景颜色
+            for (var j = 0; j < olObj.children.length; j++) {
+                olObj.children[j].removeAttribute("class");
+            }
+            //设置当前鼠标进来的li的背景颜色
+            this.className = "current";
+            //获取鼠标进入li的当前的索引值
+            pic = this.getAttribute("index");
+            //移动ul
+            animate(ulObj, -pic * imgWidth);
+        }
+    }
+    //设置ol中第一个li的背景颜色
+    olObj.children[0].className = "current";
+    //克隆一个ul中第一个li加入到ul中的最后一个
+    ulObj.appendChild(ulObj.children[0].cloneNode(true));
+    var timeId=setInterval(clickHandle,1000);
+    //鼠标进入到box的div 显示左右焦点的div
+    box.onmouseover = function () {
+        arr.style.display = "block";
+        //鼠标进入废掉之前的定时器
+        clearInterval(timeId);
+    };
+    //鼠标进入到box的div隐藏左右焦点的div
+    box.onmouseout = function () {
+        arr.style.display = "none";
+        timeId=setInterval(clickHandle,1000);
+    };
+    //右边按钮
+    my$("right").onclick = clickHandle;
+        function clickHandle() {
+        if (pic == list.length - 1) {
+            pic = 0;
+            ulObj.style.left = 0 + "px";
+        }
+        pic++;
+        animate(ulObj, -pic * imgWidth);
+        //如果pic==5说明，此时显示的是第六个图
+        if (pic == list.length - 1) {
+            //第五个按钮干掉
+            olObj.children[olObj.children.length - 1].className = "";
+            //第一个按钮的颜色设置上
+            olObj.children[0].className = "current";
+        } else {
+            //干掉所有按钮的背景颜色
+            for (var i = 0; i < olObj.children.length; i++) {
+                olObj.children[i].removeAttribute("class");
+            }
+            olObj.children[pic].className = "current";
+        }
+    };
+    //左边按钮
+    my$("left").onclick = function () {
+        if (pic == 0) {
+            pic = 5;
+            ulObj.style.left = -pic * imgWidth + "px";
+        }
+        pic--;
+        animate(ulObj, -pic * imgWidth);
+        //设置小按钮的颜色---所有的小按钮干掉颜色
+        for (var i = 0; i < olObj.children.length; i++) {
+            olObj.children[i].removeAttribute("class");
+        }
+        //当前的pic索引对应的按钮设置颜色
+        olObj.children[pic].className = "current";
+    };
+
+
+    //设置任意一个目标移动到目标位置
+    function animate(element, target) {
+        clearInterval(element.timeId);
+        element.timeId = setInterval(function () {
+            //获取元素当前位置，数字类型
+            var current = element.offsetLeft;
+            //每次移动的距离
+            var step = 10;
+            step = current < target ? step : -step;
+            //当前移动的距离
+            current += step;
+            if (Math.abs(current - target) > Math.abs(step)) {
+                element.style.left = current + "px";
+            } else {
+                //清理定时器
+                clearInterval(element.timeId);
+                //直接到达目标
+                element.style.left = target + "px";
+            }
+        }, 20);
+    }
+</script>
+
+
+</body>
+</html>

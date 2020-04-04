@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+请输入你的地址：<input type="text" id="email" value="" />*<br>
+<script>
+    //获取文本的id
+    document.getElementById("email").onblur=function () {
+        // 邮箱的正则表达式
+        var get=/^[0-9a-zA-Z._-]+[@][0-9a-zA-Z._-]+([a-zA-Z]+){1,2}$/;
+        if (get.test(this.value)){
+          this.style.backgroundColor="green";
+        } else{
+            this.style.backgroundColor="red";
+        }
+    };
+</script>
+</body>
+</html>

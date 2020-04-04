@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品界面</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	  <div class="card">
+	  	<div class="top-section">
+	  		<img  src="1.jpg" alt="" id="image-container">
+	  		<div class="nav">
+	  			<img onclick="change_img(this)" src="1.jpg" alt="">
+	  			<img onclick="change_img(this)" src="2.jpg" alt="">
+	  			<img onclick="change_img(this)" src="3.jpg" alt="">
+	  		</div>
+	  		<div class="price">$80</div>
+	  		</div>
+	  		<div class="product-info">
+	  			<div class="name">眼镜</div>
+	  			<div class="dis">每个人都可以拥有的眼镜</div>
+	  			<a class="btn" href="#">加入购物车</a>
+	  	</div>
+	  </div>
+	  <script>
+	  	var container = document.getElementById('image-container')
+	  	function change_img(image) {
+	  		container.src = image.src;
+	  	}
+	  </script>
+</body>
+</html>

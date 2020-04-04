@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证密码的强度</title>
+</head>
+<style>
+    #dv{
+        width: 300px;
+        height: 200px;
+        position: absolute;  /*定位*/
+        left: 300px;
+        top: 100px;
+    }
+    .strengthLv0{
+        height: 6px;
+        width: 120px;
+        border: 1px solid #ccc;  /*边框*/
+        padding: 2px;     /*内边距*/
+    }
+    .strengthLv1{
+        background: red;
+        width: 40px;
+        height: 6px;
+        border: 1px solid #ccc;
+        padding: 2px;
+    }
+    .strengthLv2{
+        background: orange;
+        height: 6px;
+        width: 80px;
+        border: 1px solid #ccc;
+        padding: 2px;
+    }
+    .strengthLv3{
+        background: green;
+        width: 120px;
+        height: 6px;
+        border: 1px solid #ccc;
+        padding: 2px;
+    }
+</style>
+<body>
+<div id="dv">
+    <label for="pwd"></label>
+    <input type="text" id="pwd" maxlength="16">
+    <div>
+        <em>密码强度：</em>
+        <em id="strength"></em>
+        <div id="strengthLevel" class="strengthLv0"></div>
+    </div>
+</div>
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+    //获取文文框注册抬起事件
+    my$("pwd").onkeyup=function () {
+        my$("strengthLevel").className="strengthLv"+(this.value.length>=6?getLvl(this.value):0);
+    };
+    function getLvl(pwd) {
+        //默认值是为0级
+        var lvl=0;
+        //判断密码中是有字母；数字或者特殊符号
+        if (/[0-9]/.test(pwd)){    //test 判断正则表达式与字符串是否匹配
+            lvl++;
+        }
+        //判断密码中有没有字母
+        if (/[a-zA-Z]/.test(pwd)){
+            lvl++;
+        }
+        //判断密码中有没有特殊符号
+        if (/[^0-9a-zA-Z]/.test(pwd)){
+            lvl++;
+        }
+        //最小值为1 最大值为3
+        return lvl;
+    }
+
+</script>
+
+</body>
+</html>

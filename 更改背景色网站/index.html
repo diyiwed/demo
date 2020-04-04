@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>更改背景色网站</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="btn"><i class="fa fa-cog"></i></div>
+
+    <div class="box">
+        <h2>输入一个颜色</h2>
+        <div class="box-c">
+            <div class="txtb">
+                <input type="text" placeholder="#000000" id="hex">
+                <div class="prev"></div>
+            </div>
+            <button class="apply">应用</button>
+        </div>
+    </div>
+
+    <script>
+        $('.btn').click(function () {
+            $(".box").toggleClass("box-show");
+        });
+
+        $('#hex').keyup(function () {
+            $(".prev").css("background", $('#hex').val());
+        });
+
+        $('.apply').click(function () {
+            $('body').css("background", $('#hex').val());
+
+            $(".box").toggleClass("box-show")
+        });
+    </script>
+</body>
+
+</html>

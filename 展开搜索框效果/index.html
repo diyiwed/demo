@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>展开搜索框效果</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <div class="middle">
+        <form action="index.html" class="search-box" method="post">
+            <input type="text" class="input" name="" value="">
+            <button type="button" class="btn" name="button"></button>
+        </form>
+    </div>
+
+    <script>
+        $(".btn").on("click", function() {
+            $(".input").toggleClass("inclicked");
+            $(".btn").toggleClass("close")
+        })
+    </script>
+</body>
+</html>
